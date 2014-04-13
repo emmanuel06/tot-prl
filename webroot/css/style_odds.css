@@ -1,0 +1,123 @@
+@CHARSET "ISO-8859-1";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+   RESET
+*/
+*{margin:0;
+padding:0;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin-left: 0;
+	margin-top: 0;
+	padding-left: 0;
+	padding-top: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body, html {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a img{ border:0;}
+
+/* END RESET */
+		
+	#wrapper{
+		border:1px solid black;
+		font-size: 10pt;
+		font-family: Verdana;
+	}
+	#header{
+		border-bottom: 1px solid black;
+		width: 100%;
+		clear: both;
+		height: 75px;
+	}
+		#head_txt{
+			float:left;
+		}
+		#head_img{
+			float:right;
+			width: 241px;
+			height: 65px;
+			background-image: url(../img/odds_logo.jpg);
+			margin-right: 5px;
+			margin-top: 5px;
+		}
+	#odds_content{
+		width: 100%;
+		margin: 1px 1px 1px 1px;
+	}
+		#odds_table{
+			margin: 0 auto;
+			font-size: 6pt;
+			border-spacing: 0px;
+			width: 100%;
+			border: 1px solid black;
+		}
+		#odds_table th{
+			border: 1px solid black;
+			padding: 2px;
+			font-size: 7pt;
+			background-color: #EDEDED;
+			text-align: center;
+			vertical-align: middle;
+			font-weight: bold;
+		}
+		#odds_table td{
+			padding: 2px;
+			vertical-align: middle;
+			text-align: center;
+		}
+		.away_row{
+			border-bottom: 1px dashed gray;
+			border-top-style: none;
+		}
+		.home_row{
+			border-top-style: none;
+		}
+		.leaguename{
+			font-size: 140%;
+		}
+		
+	#footer{
+		border-top: 1px solid black;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		width: 100%;
+		text-align: center;
+		font-size: 70%;
+	}		
