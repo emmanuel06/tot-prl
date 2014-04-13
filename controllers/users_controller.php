@@ -2,8 +2,8 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	var $helpers = array('Html', 'Form','Dtime');
-	var $uses = array('User','Profile');
+	//var $helpers = array('Html', 'Form','Dtime');
+	//var $uses = array('User','Profile');
 	
 
 	function beforeFilter(){

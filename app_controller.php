@@ -1,7 +1,7 @@
 <?php 
 class AppController extends Controller {
     var $components = array('Authed','Session','RequestHandler');
-	var $helpers = array('Html','Form','Session','Javascript','Dtime','Number');
+	var $helpers = array('Html','Form','Session','Javascript','Dtime');
 	
 	var $paginate = array(
 		'limit' => 30
@@ -17,11 +17,6 @@ class AppController extends Controller {
 		$this->Authed->allow('display');
 		$this->Authed->loginError = 'Combinacion login/password no valida';
 		$this->Authed->authError = 'No tiene permitido ingresar';
-		$this->RequestHandler->setContent('json', 'text/x-json');
-		$this->disableCache();
-		//<JSON
-		$this->RequestHandler->setContent('json', 'text/x-json');
-		//JSON>
 		
 		$this->Authed->userScopeRules = array(
 			'enable' => array(
@@ -41,24 +36,8 @@ class AppController extends Controller {
 			}		
 			
 			$this->set("authUser", $this->authUser);
-
-			
 		}
-		
-		$for_titles_spa = array(
-			'Home' => 'Inicio',
-			'Users' => 'Usuarios',
-			'Groups' => 'Grupos',
-			'Profiles' => 'Usuarios',
-			'Sports' => 'Deportes',
-			'Leagues' => 'Ligas',
-			'Teams' => 'Equipos',
-			'Pitchers' => 'Pitchers',
-			'Games' => 'Juegos',
-			'Odds' => 'Logros'
-		);
-		
-		$this->set("for_titles_spa", $for_titles_spa);
+
 	}
 	
 	function isAuthorized() {

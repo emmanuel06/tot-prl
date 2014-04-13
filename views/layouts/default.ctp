@@ -1,24 +1,15 @@
-<html>		
+<!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>
-			Total Parlay: 
-			<?php 
-			if(!empty($for_titles_spa[$title_for_layout]))
-				echo $for_titles_spa[$title_for_layout];
-			else
-				echo $title_for_layout;
-			?> 
+			Total Parlay
 		</title>
 		<link rel="shortcut icon" href="<?php echo $html->url('/favicon.ico') ?>" type="image/x-icon">
 		<?php 
-		echo $html->css('cake.generic');
-		echo $html->css('jquery-ui-1.8.16.custom');
-		
-		echo $javascript->link("jquery-1.4.4");
-		echo $javascript->link("jquery-ui-1.8.7.custom");
-		echo $javascript->link("jquery.forms");
-		echo $javascript->link("menu");
+		echo $html->css(array('cake.generic','ui-thms/south-street/jquery-ui-1.10.4.custom.css'));
+
+		echo $javascript->link(array('jquery-1.10.2','jquery-ui-1.10.4.custom'));
 
 		?>
 	</head>

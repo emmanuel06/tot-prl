@@ -1,1 +1,6 @@
-/tmp/*
+/config
+/tmp
+/tests
+/plugins
+/vendors
+index.php
