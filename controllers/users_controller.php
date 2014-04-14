@@ -9,7 +9,7 @@ class UsersController extends AppController {
 	function beforeFilter(){
 		parent::beforeFilter();	
 		
-		$this->Authed->allow(array("login","logout","unblock"));
+		$this->Authed->allow(array("login","logout","unblock","get_hour"));
 	}
 	
 	function isAuthorized(){
@@ -92,6 +92,9 @@ class UsersController extends AppController {
 		}
 		$this->set(compact('secretQuestion','chk'));
 	}	
-	
+
+    function get_hour() {
+        $this->layout = 'ajax';
+    }
 }
 ?>

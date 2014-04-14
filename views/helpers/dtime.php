@@ -52,11 +52,12 @@ class dtimeHelper extends AppHelper {
 	 */
 	function date_spa_show($date){
 		$xpl = explode('-',$date);
-	  
-	  	$dia = $this->_dias_letters($xpl[0]);
+	    //print_r($xpl);
+        //[0] => 13 [1] => Sun [2] => 04 [3] => 2014
+	  	$dia = $this->_dias_letters($xpl[1]);
 		$mes = $this->_meses_numbers($xpl[2]);
 		
-		return $dia.", ".$xpl[1]." de ".$mes." de ".$xpl[3];
+		return $dia.", ".$xpl[0]." de ".$mes." de ".$xpl[3];
 	}
 	
 	function date_from_created($created){
@@ -123,23 +124,6 @@ class dtimeHelper extends AppHelper {
 		);
 
 		return $mes[$index];
-	}
-	
-	function color_stat($stat){
-		switch($stat){
-			case "GANADOR":
-				$col = "Green";
-				break;
-			case "PERDEDOR":
-				$col = "Red";
-				break;
-			default:
-				$col = "Black";
-				break;
-					
-		}
-		
-		return "<span style='color:$col; font-weight:bold'>$stat</span>";
 	}
 }
 ?>

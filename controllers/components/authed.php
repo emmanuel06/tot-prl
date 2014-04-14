@@ -102,30 +102,25 @@ class AuthedComponent extends AuthComponent
 			if (!$this->hasScopeRuleMismatch($user)) {				
 				
 				$this->_loggedIn = true;
-				$userInstance = ClassRegistry::init('User');
-				$profileInstance = ClassRegistry::init('Profile');
-				$profileData = $profileInstance->find('first', array(
-					'conditions'=>array('user_id'=>$user['id']),
-					'recursive' => -1
-				));
-				
-				$user['profile_id'] = $profileData['Profile']['id'];
-				$user['role_id'] = $profileData['Profile']['role_id'];
-				$user['profile_name'] = $profileData['Profile']['name'];
+
 				unset($user['username']);
 				unset($user['email']);
-				unset($user['secret_question']);
 				unset($user['created']);
-				unset($user['secret_answer']);
-				unset($user['secret_question']);
-				unset($user['enabled']);
-				unset($user['logged']);
-				unset($user['last_login']);
-				unset($user['ip_last_login']);
-				
-				$userInstance->logon($user['id'],$_SERVER['REMOTE_ADDR']);
+                unset($user['enable']);
+                unset($user['phone_number']);
+                unset($user['min_parlays']);
+                unset($user['max_parlays']);
+                unset($user['max_amount_straight']);
+                unset($user['max_amount_parlay']);
+                unset($user['max_prize']);
+                unset($user['pct_sales_str']);
+                unset($user['pct_sales_par']);
+                unset($user['pct_won']);
+                unset($user['online']);
+                unset($user['balance']);
+
 				$this->Session->write($this->sessionKey, $user);
-				$this->Session->setFlash("Bienvenido ".$user['profile_name']);
+				$this->Session->setFlash("Bienvenido ".$user['name']);
 			
 			}
 		}
@@ -133,13 +128,9 @@ class AuthedComponent extends AuthComponent
 	}
 	function logout(){
 		//$operInstance = ClassRegistry::init('Operation');
-		$userInstance = ClassRegistry::init('User');
 		//$operInstance->logout($this->user('id'),0,"users", "", null,$_SERVER['REMOTE_ADDR']);
-		$userInstance->logoff($this->user('id'));
 		return parent::logout();
 	}
-	
-		
 	
 	/**
 	 * Returns true if the login error was scope rules related.
