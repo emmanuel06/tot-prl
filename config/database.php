@@ -7,7 +7,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => 'gamma',
-		'database' => 'totalparlay',
+		'database' => 'totalpafdgrlay',
 		'prefix' => '',
 	);
 	
