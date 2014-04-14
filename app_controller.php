@@ -36,7 +36,11 @@ class AppController extends Controller {
 			}		
 			
 			$this->set("authUser", $this->authUser);
-		}
+
+            $this->set("menuActions", $this->getMenu($this->authUser['role_id']));
+        }
+
+
 
 	}
 	
@@ -69,6 +73,96 @@ class AppController extends Controller {
 		
 		return $ret;
 	}
+
+    function getMenu ($role) {
+        if ($this->isAdmin() === TRUE)
+            return $this->getAdminMenu();
+    }
+
+    function getAdminMenu () {
+
+        $actions = array(
+
+            array(
+                'title'      => 'JUEGOS',
+                'controller' => '',
+                'action'     => '',
+                'Submenus'   => array(
+                                    array (
+                                        'title'      => 'Adm. Juegos',
+                                        'controller' => 'games',
+                                        'action'     => 'index'
+                                    )
+                                    ,
+                                    array (
+                                        'title'      => 'H. Logros',
+                                        'controller' => 'games',
+                                        'action'     => 'index'
+                                    )
+                                )
+            )
+            ,
+            array(
+                'title'      => 'VENTAS',
+                'controller' => '',
+                'action'     => '',
+                'Submenus'   => array(
+                                    array (
+                                        'title'      => 'Tickets',
+                                        'controller' => 'tickets',
+                                        'action'     => 'index'
+                                    )
+                                    ,
+                                    array (
+                                        'title'      => 'Totales',
+                                        'controller' => 'tickets',
+                                        'action'     => 'sales'
+                                    )
+                )
+            )
+            ,
+            array(
+                'title'      => 'USUARIOS',
+                'controller' => 'users',
+                'action'     => 'index',
+                'Submenus'   => array()
+            )
+            ,
+            array(
+                'title'      => 'DATOS',
+                'controller' => '',
+                'action'     => '',
+                'Submenus'   => array(
+                                    array (
+                                        'title'      => 'Deportes',
+                                        'controller' => 'sports',
+                                        'action'     => 'index'
+                                    )
+                                    ,
+                                    array (
+                                        'title'      => 'Ligas',
+                                        'controller' => 'leagues',
+                                        'action'     => 'index'
+                                    )
+                                    ,
+                                    array (
+                                        'title'      => 'Equipos',
+                                        'controller' => 'teams',
+                                        'action'     => 'index'
+                                    )
+                                    ,
+                                    array (
+                                        'title'      => 'Pitchers',
+                                        'controller' => 'pitchers',
+                                        'action'     => 'index'
+                                    )
+                                )
+            )
+        );
+
+        return $actions;
+
+    }
 	
 }
 ?>

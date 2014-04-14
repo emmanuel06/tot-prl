@@ -13,15 +13,15 @@
   }
 </style>
 <div id="logpart">
-<h2>Iniciar Sesion</h2>
     <?php
 	if(empty($authUser)){
+        echo "<h2>Iniciar Sesion</h2>";
         echo $form->create('User',array('action'=>"login"));
         echo $form->input('username',array('label'=>'Usuario'));
         echo $form->input('password',array('label'=>'Password'));
         echo $form->end('Ingresar');
 	}else{
-		echo "<h3>".$authUser['name']." en linea.</h3>";
+		echo "<h2>".$authUser['name']." en linea.</h2>";
         //pr($authUser);
 	}
 	?>

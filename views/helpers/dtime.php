@@ -1,5 +1,34 @@
 <?php
 class dtimeHelper extends AppHelper {
+    var $helpers = array('Html');
+
+    function construct_menu($menuActions) {
+        $allmenu = "<ul id='nav-menu'>";
+        foreach ($menuActions as $menu) {
+
+            if (empty($menu['Submenus']) === TRUE){
+                $hisHref  = $this->Html->url(array('action'=>$menu['action'],'controller'=>$menu['controller']));
+                $submenu  = "";
+                $subclass = null;
+                $compl    = "";
+            }else{
+                $hisHref  = "#";
+                $submenu  = "<ul class='subs'>";
+                $subclass = " class='only-tit'";
+                $compl    = "&nbsp;&nbsp;&nbsp;&nbsp;&#9660;";
+
+                foreach ($menu['Submenus'] as $subaction) {
+                    $subHref  = $this->Html->url(array('action'=>$subaction['action'],'controller'=>$subaction['controller'],'admin'=>1));
+                    $submenu .= "<li><a href='" . $subHref . "'>" . $subaction['title'] . "</a></li>";
+                }
+                $submenu  .= "</ul>";
+            }
+            $allmenu .= "<li><a href='" . $hisHref . "' $subclass>" . $menu['title'] . "$compl</a>" . $submenu . "</li>";
+        }
+        $allmenu .= "</ul>";
+
+        echo $allmenu;
+    }
 	
 	//Coloca la hora desde DB a humana
 	function time_to_human($time){
