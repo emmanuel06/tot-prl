@@ -1,6 +1,6 @@
-config
-/plugins
-/tests
-/tmp
-/vendors
+config/
+plugins/
+tests/
+tmp/
+vendors/
 index.php
