@@ -1,6 +1,6 @@
 config/*
-plugins/*
 locale/*
+plugins/*
 tests/*
 tmp/*
 vendors/*
