@@ -1,62 +1,85 @@
 <?php 
 class AppController extends Controller {
-    var $components = array('Authed','Session','RequestHandler');
+    var $components = array('Authed','Session'); //,'RequestHandler'
 	var $helpers = array('Html','Form','Session','Javascript','Dtime');
-	
-	var $paginate = array(
-		'limit' => 30
-	);
-	
+
+    //accesses allowed for all users!
+    var $allowedAccesses = array(
+            'users' => array(
+                'login',
+                'get_hour'
+            )
+    );
+
 	
 	function beforeFilter(){
 		
-		$this->Authed->fields = array('username' => 'username', 'password' => 'password');
-		$this->Authed->loginAction = array('controller' => 'users', 'action' => 'login','admin'=>0);
-		$this->Authed->logoutRedirect = array('controller' => 'pages');
-		$this->Authed->authorize = 'controller';
-		$this->Authed->allow('display');
-		$this->Authed->loginError = 'Combinacion login/password no valida';
-		$this->Authed->authError = 'No tiene permitido ingresar';
-		
+		$this->Authed->fields         = array('username' => 'username', 'password' => 'password');
+		$this->Authed->loginAction    = array('controller' => 'users', 'action' => 'login','admin' => 0);
+        $this->Authed->logoutRedirect = array('controller' => 'users', 'action' => 'login','admin' => 0);
+        $this->Authed->loginRedirect  = array('controller' => 'pages', 'action' => 'welcome');
+        $this->Authed->loginError     = 'Usuario/password no existe.';
+		$this->Authed->authError      = 'Direccion prohibida.';
+        //$this->Authed->authorize = 'controller';
+        //$this->Authed->allow('display');
+
 		$this->Authed->userScopeRules = array(
 			'enable' => array(
-				'expected' => 1, 
-				'message' => "Lo sentimos, su usuario esta bloqueado."
+                        'expected' => 1,
+                        'message'  => "Lo sentimos, su usuario esta bloqueado."
 			)
 		);
-		
-		$this->authUsr = $this->Authed->user();
-		
-		$this->authUser = $this->authUsr['User'];
-		
-		if($this->authUser != null){
-			
-			if(!($this->user_enable())){
+
+        $logdataUser     = $this->Authed->user();
+		$this->loginData = $logdataUser['User'];
+
+        if($this->loginData != null){
+			if (!($this->user_enable())){
 				$this->Authed->logout();
 			}		
-			
-			$this->set("authUser", $this->authUser);
 
-            $this->set("menuActions", $this->getMenu($this->authUser['role_id']));
+            $this->set("loginData", $this->loginData);
+            $this->set("menuActions", $this->getMenu($this->loginData['role_id']));
         }else{
             $this->layout = 'noauth';
         }
 
-
+        pr($this->allowedAccesses);
+        pr($this->params);
 
 	}
+
+    function verifyAccess ($controller,$action)
+    {
+        $access = false;
+        if (in_array($controller,$this->allowedAccesses) === true){
+            //die("pasooo uno");
+            if (in_array($action,$this->allowedAccesses[$controller]) === true){
+                $access = true;
+                //die("pasooo");
+            }
+        }
+        return $access;
+        //$this->loginData['role_id']
+    }
 	
-	function isAuthorized() {
-		return true;
+	function isAuthorized()
+    {
+        $authorized = $this->verifyAccess($this->params['controller'],$this->params['action']);
+
+        //pr($this->allowedAccesses);
+        //pr($this->params);
+
+		return $authorized;
 	}
 	
-	function isAdmin(){
+	function isAdm()
+    {
 		return ($this->Authed->user('role_id') == ROLE_ADMIN);
 	}
-	function isSubAdm(){
-		return ($this->Authed->user('role_id') == ROLE_SUBADM);
-	}
-	function isTaquilla(){
+
+	function isTaq()
+    {
 		return ($this->Authed->user('role_id') == ROLE_TAQUILLA);
 	}
 	
@@ -64,7 +87,7 @@ class AppController extends Controller {
 		$userInstance = ClassRegistry::init('User');
 		$userInstance->recursive = -1;
 		$u = $userInstance->find("first",array(
-			"conditions"=>array("User.id"=>$this->authUser['id']),
+			"conditions"=>array("User.id"=>$this->loginData['id']),
 			'fields'=>'enable'
 		));
 		$ret = true;
@@ -77,7 +100,7 @@ class AppController extends Controller {
 	}
 
     function getMenu () {
-        if ($this->isAdmin() === TRUE)
+        if ($this->isAdm() === TRUE)
             return $this->getAdminMenu();
     }
 

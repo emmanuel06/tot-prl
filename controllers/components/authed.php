@@ -103,7 +103,14 @@ class AuthedComponent extends AuthComponent
 				
 				$this->_loggedIn = true;
 
-				unset($user['username']);
+				$userData = array(
+                    'id'       => $user['id'],
+                    'name'     => $user['name'],
+                    'role_id'  => $user['role_id'],
+                    'group_id' => $user['group_id'],
+                );
+
+                /*unset($user['username']);
 				unset($user['email']);
 				unset($user['created']);
                 unset($user['enable']);
@@ -119,7 +126,16 @@ class AuthedComponent extends AuthComponent
                 unset($user['online']);
                 unset($user['balance']);
 
-				$this->Session->write($this->sessionKey, $user);
+                Array
+                (
+                    [id] => 1
+                    [name] => Florencio DeGois
+                    [role_id] => 1
+                    [group_id] => 1
+                )
+                */
+
+				$this->Session->write($this->sessionKey, $userData);
 				$this->Session->setFlash("Bienvenido ".$user['name']);
 			
 			}

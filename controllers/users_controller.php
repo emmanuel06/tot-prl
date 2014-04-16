@@ -2,10 +2,8 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	//var $helpers = array('Html', 'Form','Dtime');
-	//var $uses = array('User','Profile');
 	
-
+    /*
 	function beforeFilter(){
 		parent::beforeFilter();	
 		
@@ -31,7 +29,9 @@ class UsersController extends AppController {
 		
 		return $ret;
 	}
-	
+
+    */
+
 	function login(){
 
   	}
@@ -57,43 +57,7 @@ class UsersController extends AppController {
 		$this->redirect($this->referer());
 	}
 		
-	function unblock(){
-		
-		if (!empty($this->data)){
-			if(!empty($this->data['User']['username'])){
-				$chk = 1;
-				$user = $this->User->find('first',array(
-					'conditions'=>array('username'=>$this->data['User']['username']),
-					'fields'=>array('id','secret_question','secret_answer'),'recursive'=>-1
-				));
-				//pr($user); die();
-				if(!empty($user)){
-					$secretQuestion = $user['User']['secret_question'];
-					$secretAnswer = $user['User']['secret_answer'];
-					
-					if(!empty($this->data['User']['answer'])){
-						if($this->data['User']['answer'] == $secretAnswer){
-							$this->User->updateAll(
-								array('logged'=>0),
-								array('User.id'=>$user['User']['id'])
-							);
-							$this->Session->setFlash("La RESPUESTA SECRETA es correcta. Ud ha sido desbloqueado");
-							$this->redirect(array('action'=>'login'));
-						
-						}else{
-							$this->Session->setFlash("La RESPUESTA SECRETA NO es correcta.");
-						}
-					}
-				}
-			}
-		}else{
-			$secretQuestion = "";
-			$chk = 0;
-		}
-		$this->set(compact('secretQuestion','chk'));
-	}	
-
-    function get_hour() {
+	function get_hour() {
         $this->layout = 'ajax';
     }
 }
