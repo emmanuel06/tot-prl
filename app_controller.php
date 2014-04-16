@@ -38,6 +38,8 @@ class AppController extends Controller {
 			$this->set("authUser", $this->authUser);
 
             $this->set("menuActions", $this->getMenu($this->authUser['role_id']));
+        }else{
+            $this->layout = 'noauth';
         }
 
 
@@ -74,7 +76,7 @@ class AppController extends Controller {
 		return $ret;
 	}
 
-    function getMenu ($role) {
+    function getMenu () {
         if ($this->isAdmin() === TRUE)
             return $this->getAdminMenu();
     }

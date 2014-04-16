@@ -1,10 +1,7 @@
 <style>
-  #logpart{
-      width: 250px;
-
-  }
   #UserLoginForm{
-      text-align: right;
+     text-align: right;
+      width: 250px;
   }
   #UserLoginForm input[type=text],
   #UserLoginForm input[type=password] {
@@ -12,7 +9,7 @@
       margin-top: 10px;
   }
 </style>
-<div id="logpart">
+<div>
     <?php
 	if(empty($authUser)){
         echo "<h2>Iniciar Sesion</h2>";
@@ -21,7 +18,7 @@
         echo $form->input('password',array('label'=>'Password'));
         echo $form->end('Ingresar');
 	}else{
-		echo "<h2>".$authUser['name']." en linea.</h2>";
+		echo "<h2>".$authUser['name']." conectado.</h2>";
         //pr($authUser);
 	}
 	?>

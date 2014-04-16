@@ -33,10 +33,10 @@ class UsersController extends AppController {
 	}
 	
 	function login(){
+
   	}
 	
 	function logout(){
-		$this->Session->setFlash('Ha finalizado su sesion satisfactoriamente');
 		$this->redirect($this->Authed->logout());
 	}
 
