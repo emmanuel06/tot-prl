@@ -1,7 +1,4 @@
-config/**/*
+tmp/*
 locale/*
 plugins/*
 tests/*
-tmp/*
-vendors/*
-index.php

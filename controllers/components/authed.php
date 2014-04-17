@@ -110,34 +110,7 @@ class AuthedComponent extends AuthComponent
                     'group_id' => $user['group_id'],
                 );
 
-                /*unset($user['username']);
-				unset($user['email']);
-				unset($user['created']);
-                unset($user['enable']);
-                unset($user['phone_number']);
-                unset($user['min_parlays']);
-                unset($user['max_parlays']);
-                unset($user['max_amount_straight']);
-                unset($user['max_amount_parlay']);
-                unset($user['max_prize']);
-                unset($user['pct_sales_str']);
-                unset($user['pct_sales_par']);
-                unset($user['pct_won']);
-                unset($user['online']);
-                unset($user['balance']);
-
-                Array
-                (
-                    [id] => 1
-                    [name] => Florencio DeGois
-                    [role_id] => 1
-                    [group_id] => 1
-                )
-                */
-
-				$this->Session->write($this->sessionKey, $userData);
-				$this->Session->setFlash("Bienvenido ".$user['name']);
-			
+                $this->Session->write($this->sessionKey, $userData);
 			}
 		}
 		return $this->_loggedIn;

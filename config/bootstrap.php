@@ -25,9 +25,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-	define('ROLE_ADMIN', 1); 
-	define('ROLE_SUBADM', 2);
-	define('ROLE_TAQUILLA', 3);
+	define('ROLE_ADM', 1);
+	define('ROLE_SUB', 2);
+	define('ROLE_TAQ', 3);
 	define('ID_BASKET', 3);
 	define('ID_HOCKEY', 4);
 	define('ID_FOOTBALL', 5);

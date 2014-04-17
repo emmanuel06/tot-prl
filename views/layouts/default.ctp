@@ -18,7 +18,7 @@
         <style>
             /* HIDING IN CASE */
             #logo-wrapper,#name-wrapper,#footer-wrapper {
-                display: none
+                display: none;
             }
 
         </style>
@@ -30,32 +30,30 @@
                 TOTAL<span id="parlay-letters">Parlay</span>
             </div>
             <?php
-			if(!empty($authUser)){
-			?>
+            if(!empty($loginData)) {
+            ?>
                 <div id="logged-wrapper">
                     <span class="auth-data" id="auth-date"><?= $dtime->date_spa_show(date('d-D-m-Y')) ?> |</span>
                     <span class="auth-data" id="auth-time"><?= $dtime->time_to_human(date('H:i:s')) ?></span>
                     <br />
                     <div id="auth-name">
-                        <?= $authUser['name'] ?>
+                        <?= $loginData['name'] ?>
                         <span id="auth-logout"><?= $html->link("Salir",array('controller'=>'users','action'=>'logout','admin'=>0)) ?></span>
                     </div>
                 </div>
             <?php
-			}
-			?>
+            }
+            ?>
 		</div>
-        <?php
-        if(!empty($authUser)){
-        ?>
+
 		<div id="menu-wrapper">
 			<?php
-            $dtime->construct_menu($menuActions);
-			?>
+            if(!empty($loginData)) {
+                $dtime->construct_menu($menuActions);
+            }
+            ?>
 		</div>
-        <?php
-        }
-        ?>
+
 		<div id="content-wrapper">
 			<?php  
 			if ($session->check('Message.flash'))
@@ -69,10 +67,6 @@
 		<div id="footer-wrapper">
 		    <span>Total Parlay &copy; All rights reserved.</span>
 		</div>
-        <?php
-        if(!empty($authUser)){
-            echo "<div id='modal-view'></div>";
-        }
-        ?>
+        <div id='modal-view'></div>
 	</body>
 </html>

@@ -64,7 +64,7 @@
  * 'admin' 		-> admin_index() and /admin/controller/index
  * 'superuser' -> superuser_index() and /superuser/controller/index
  */
-	Configure::write('Routing.admin', 'admin');
+	//Configure::write('Routing.admin', 'admin');
 
 /**
  * Turn off all caching application-wide.
@@ -117,12 +117,12 @@
 /**
  * The name of CakePHP's session cookie.
  */
-	Configure::write('Session.cookie', 'RAICING');
+	Configure::write('Session.cookie', 'TOTALPARLAY');
 /**
  * Session time out time (in seconds).
  * Actual value depends on 'Security.level' setting.
  */
-	Configure::write('Session.timeout', '120000000');
+	Configure::write('Session.timeout', '60000000');
 /**
  * If set to false, sessions are not automatically started.
  */
@@ -168,8 +168,8 @@
  * The classname and database used in CakePHP's
  * access control lists.
  */
-	Configure::write('Acl.classname', 'DbAcl');
-	Configure::write('Acl.database', 'default');
+	//Configure::write('Acl.classname', 'DbAcl');
+	//Configure::write('Acl.database', 'default');
 /**
  * If you are on PHP 5.3 uncomment this line and correct your server timezone
  * to fix the date & time related errors.

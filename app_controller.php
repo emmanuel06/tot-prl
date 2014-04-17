@@ -5,30 +5,37 @@ class AppController extends Controller {
 
     //accesses allowed for all users!
     var $allowedAccesses = array(
-            'users' => array(
-                'login',
-                'get_hour'
-            )
+        'pages' => array(
+                    'welcome'
+        ),
+        'users' => array(
+                    'login',
+                    'logout',
+                    'get_hour',
+                    'index'
+        )
     );
 
 	
 	function beforeFilter(){
 		
 		$this->Authed->fields         = array('username' => 'username', 'password' => 'password');
-		$this->Authed->loginAction    = array('controller' => 'users', 'action' => 'login','admin' => 0);
-        $this->Authed->logoutRedirect = array('controller' => 'users', 'action' => 'login','admin' => 0);
-        $this->Authed->loginRedirect  = array('controller' => 'pages', 'action' => 'welcome');
+		$this->Authed->loginAction    = array('controller' => 'users', 'action' => 'login');
+        $this->Authed->logoutRedirect = array('controller' => 'users', 'action' => 'login');
+        $this->Authed->loginRedirect  = array('controller' => 'users', 'action' => 'welcome');
         $this->Authed->loginError     = 'Usuario/password no existe.';
-		$this->Authed->authError      = 'Direccion prohibida.';
-        //$this->Authed->authorize = 'controller';
-        //$this->Authed->allow('display');
+		$this->Authed->authError      = 'Acceso denegado.';
+        $this->Authed->allow('login','logout','display');
+        $this->Authed->authorize = 'controller';
 
-		$this->Authed->userScopeRules = array(
+        $this->Authed->userScopeRules = array(
 			'enable' => array(
                         'expected' => 1,
                         'message'  => "Lo sentimos, su usuario esta bloqueado."
 			)
 		);
+
+        $this->disableCache();
 
         $logdataUser     = $this->Authed->user();
 		$this->loginData = $logdataUser['User'];
@@ -44,43 +51,40 @@ class AppController extends Controller {
             $this->layout = 'noauth';
         }
 
-        pr($this->allowedAccesses);
-        pr($this->params);
-
 	}
 
-    function verifyAccess ($controller,$action)
+    /*
+    function isAuthorized()
     {
-        $access = false;
-        if (in_array($controller,$this->allowedAccesses) === true){
-            //die("pasooo uno");
-            if (in_array($action,$this->allowedAccesses[$controller]) === true){
-                $access = true;
-                //die("pasooo");
-            }
-        }
-        return $access;
-        //$this->loginData['role_id']
-    }
-	
-	function isAuthorized()
-    {
-        $authorized = $this->verifyAccess($this->params['controller'],$this->params['action']);
 
+
+        $controller = $this->params['controller'];
+        $action     = $this->params['action'];
+        $access     = false;
         //pr($this->allowedAccesses);
         //pr($this->params);
 
-		return $authorized;
-	}
-	
-	function isAdm()
+        if (isset($this->allowedAccesses[$controller])) {
+            //die("pasooo contr");
+            if (!empty($this->allowedAccesses[$controller][$action])){
+                $access = true;
+                //die("pasooo action");
+            }
+       }
+
+
+
+        return false;
+    }*/
+
+    function isAdm()
     {
-		return ($this->Authed->user('role_id') == ROLE_ADMIN);
+		return ($this->Authed->user('role_id') == ROLE_ADM);
 	}
 
 	function isTaq()
     {
-		return ($this->Authed->user('role_id') == ROLE_TAQUILLA);
+		return ($this->Authed->user('role_id') == ROLE_TAQ);
 	}
 	
 	function user_enable(){
