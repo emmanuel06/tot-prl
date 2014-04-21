@@ -1,7 +1,17 @@
+<style>
+.users_index{
+    border: 1px solid forestgreen;
+}
+</style>
+<div class="users_index">
+
+<ul>
+    <li><?php echo $html->link('Agregar',array('action'=>'add')) ?></li>
+</ul>
 <?php
 pr($users);
-
 ?>
+</div>
 <script>
     /**
      *  -> HEY :: I need a plugin jquery to create buttons

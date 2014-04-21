@@ -2,30 +2,16 @@
 class AppController extends Controller {
     var $components = array('Authed','Session'); //,'RequestHandler'
 	var $helpers = array('Html','Form','Session','Javascript','Dtime');
-
-    //accesses allowed for all users!
-    var $allowedAccesses = array(
-        'pages' => array(
-                    'welcome'
-        ),
-        'users' => array(
-                    'login',
-                    'logout',
-                    'get_hour',
-                    'index'
-        )
-    );
-
 	
 	function beforeFilter(){
 		
 		$this->Authed->fields         = array('username' => 'username', 'password' => 'password');
 		$this->Authed->loginAction    = array('controller' => 'users', 'action' => 'login');
         $this->Authed->logoutRedirect = array('controller' => 'users', 'action' => 'login');
-        $this->Authed->loginRedirect  = array('controller' => 'users', 'action' => 'welcome');
+        $this->Authed->loginRedirect  = array('controller' => 'pages', 'action' => 'welcome');
         $this->Authed->loginError     = 'Usuario/password no existe.';
 		$this->Authed->authError      = 'Acceso denegado.';
-        $this->Authed->allow('login','logout','display');
+        //$this->Authed->allow('login','logout','display');
         $this->Authed->authorize = 'controller';
 
         $this->Authed->userScopeRules = array(
@@ -46,36 +32,12 @@ class AppController extends Controller {
 			}		
 
             $this->set("loginData", $this->loginData);
-            $this->set("menuActions", $this->getMenu($this->loginData['role_id']));
+            $this->set("menuActions", $this->getMenu());
         }else{
             $this->layout = 'noauth';
         }
 
 	}
-
-    /*
-    function isAuthorized()
-    {
-
-
-        $controller = $this->params['controller'];
-        $action     = $this->params['action'];
-        $access     = false;
-        //pr($this->allowedAccesses);
-        //pr($this->params);
-
-        if (isset($this->allowedAccesses[$controller])) {
-            //die("pasooo contr");
-            if (!empty($this->allowedAccesses[$controller][$action])){
-                $access = true;
-                //die("pasooo action");
-            }
-       }
-
-
-
-        return false;
-    }*/
 
     function isAdm()
     {
@@ -105,10 +67,13 @@ class AppController extends Controller {
 
     function getMenu () {
         if ($this->isAdm() === TRUE)
-            return $this->getAdminMenu();
+            return $this->admMenu();
+
+        if ($this->isTaq() === TRUE)
+            return $this->taqMenu();
     }
 
-    function getAdminMenu () {
+    function admMenu () {
 
         $actions = array(
 

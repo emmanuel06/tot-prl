@@ -32,7 +32,6 @@ class UsersController extends AppController {
             }
         }
 
-
         return parent::isAuthorized();
 	}
 
@@ -48,7 +47,6 @@ class UsersController extends AppController {
         $this->redirect($this->referer());
 
     }
-
      */
 
     /** ADM functions */
@@ -61,6 +59,33 @@ class UsersController extends AppController {
         $this->paginate['limit']      = 30;
 
         $this->set('users',$this->paginate('User'));
+    }
+
+    function add () {
+        if(!empty ($this->data)) {
+
+            //$this->data['User']['conf_pass'] = AuthedComponent::password($this->data['User']['conf_pass']);
+
+            $this->User->set($this->data);
+            pr($this->data);
+            //invalidFields
+            $response = array('OK' => false, 'Errors' => array());
+            if ($this->User->validates()) {
+                // it validated logic
+                echo "TO SAVE!!";
+
+
+            } else {
+                // didn't validate logic
+
+                echo "ERRORS: -- <br>";
+
+                pr($this->User->invalidFields());
+            }
+
+            die(json_encode($response));
+
+        }
     }
 
     /** TAQ functions */
